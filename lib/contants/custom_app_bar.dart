@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
+import 'package:menu_managament_app/app/modules/cartPage/controllers/cart_page_controller.dart';
 import 'package:menu_managament_app/contants/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSize {
@@ -13,14 +14,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
   final bool actionIcon;
   final String name;
 
-  const CustomAppBar({required this.backArrow, required this.actionIcon, required this.name, this.icon, this.centerTitle, super.key});
+  CustomAppBar({required this.backArrow, required this.actionIcon, required this.name, this.icon, this.centerTitle, super.key});
 
   @override
   Widget get child => Text('ad');
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight + 1);
-
+  CartPageController cartPageController = Get.put(CartPageController());
   @override
   Widget build(BuildContext context) {
     final double sizeWidth = MediaQuery.of(context).size.width;
@@ -43,6 +44,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
                 ),
                 onPressed: () {
                   Get.back();
+                  cartPageController.refreshCardList();
                 },
               ),
             )

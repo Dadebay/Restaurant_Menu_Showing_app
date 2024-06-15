@@ -23,6 +23,7 @@ class ProductProfilView extends GetView<ProductProfilController> {
     return Scaffold(
         bottomSheet: AddToCardButton(
           productID: productID,
+          productProfil: true,
         ),
         appBar: CustomAppBar(backArrow: true, actionIcon: false, name: productName, centerTitle: true),
         body: ListView(

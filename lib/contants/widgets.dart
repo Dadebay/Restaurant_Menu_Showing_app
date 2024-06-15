@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:menu_managament_app/app/modules/showAllProducts/views/show_all_products_view.dart';
 import 'package:menu_managament_app/contants/constants.dart';
 
@@ -12,7 +13,7 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
   return Get.snackbar(
     title,
     subtitle,
-    snackStyle: SnackStyle.FLOATING,
+    snackStyle: SnackStyle.floating,
     titleText: title == ''
         ? const SizedBox.shrink()
         : Text(
@@ -23,7 +24,7 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
       subtitle.tr,
       style: const TextStyle(fontFamily: gilroyRegular, fontSize: 16, color: Colors.white),
     ),
-    snackPosition: SnackPosition.TOP,
+    snackPosition: SnackPosition.top,
     backgroundColor: color,
     borderRadius: 20.0,
     duration: const Duration(milliseconds: 800),
@@ -31,10 +32,13 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
   );
 }
 
-GestureDetector NameWidget({required String name}) {
+GestureDetector NameWidget({required String name, required List list}) {
   return GestureDetector(
     onTap: () {
-      Get.to(() => const ShowAllProductsView());
+      Get.to(() => ShowAllProductsView(
+            name: name,
+            list: list,
+          ));
     },
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -44,11 +48,31 @@ GestureDetector NameWidget({required String name}) {
           Text(
             name,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 8.sp),
+            style: TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: 12.sp),
           ),
-          IconButton(onPressed: () {}, icon: const Icon(IconlyLight.arrowRightCircle))
+          const Icon(IconlyLight.arrowRightCircle)
         ],
       ),
     ),
   );
+}
+
+Center spinKit() {
+  return Center(
+    child: Lottie.asset(loadingLottie, width: 70.w, height: 70.h),
+  );
+}
+
+Center errorData() {
+  return const Center(
+    child: Text("Error data"),
+  );
+}
+
+Center emptyData() {
+  return Center(
+      child: Text(
+    "noProduct".tr,
+    style: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 20.sp),
+  ));
 }

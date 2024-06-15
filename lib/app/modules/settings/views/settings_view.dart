@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:menu_managament_app/app/modules/category/views/add_category.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
+import 'package:menu_managament_app/app/modules/home/views/add_banner.dart';
 import 'package:menu_managament_app/app/modules/settings/views/add_product.dart';
 
 import '../controllers/settings_controller.dart';
@@ -47,6 +48,11 @@ class SettingsView extends GetView<SettingsController> {
                   // Get.to(() => const AddProduct());
                 },
                 child: const Text("Clear categoryList")),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => const AddBannerView());
+                },
+                child: const Text("Add banner")),
           ],
         ));
   }

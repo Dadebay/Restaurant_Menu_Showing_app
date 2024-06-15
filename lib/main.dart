@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     homeController.readCatgoryList();
     homeController.readProductsList();
+    homeController.readBannerList();
   }
 
   @override

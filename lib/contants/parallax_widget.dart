@@ -50,6 +50,7 @@ class _ParallaxState extends State<Parallax> {
           imagePath: homeController.categoryList[i]['image'],
           categoryName: homeController.categoryList[i]['name'],
           productCount: homeController.categoryList[i]['productCount'],
+          list: homeController.categoryList[i]['products'],
         );
       },
     );
@@ -57,10 +58,11 @@ class _ParallaxState extends State<Parallax> {
 }
 
 class ParallaxImage extends StatelessWidget {
-  ParallaxImage({super.key, required this.imagePath, required this.categoryName, required this.productCount});
+  ParallaxImage({super.key, required this.imagePath, required this.categoryName, required this.productCount, required this.list});
 
   final GlobalKey _backgroundImageKey = GlobalKey();
   final String imagePath;
+  final List list;
   final String categoryName;
   final int productCount;
 
@@ -68,7 +70,10 @@ class ParallaxImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => const ShowAllProductsView());
+        Get.to(() => ShowAllProductsView(
+              name: categoryName,
+              list: list,
+            ));
       },
       child: Container(
         margin: const EdgeInsets.all(15),

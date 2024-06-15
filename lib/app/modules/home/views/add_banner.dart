@@ -10,14 +10,14 @@ import 'package:menu_managament_app/contants/buttons/agree_button_view.dart';
 import 'package:menu_managament_app/contants/custom_app_bar.dart';
 import 'package:menu_managament_app/contants/widgets.dart';
 
-class AddCategoryView extends StatefulWidget {
-  const AddCategoryView({super.key});
+class AddBannerView extends StatefulWidget {
+  const AddBannerView({super.key});
 
   @override
-  State<AddCategoryView> createState() => _AddCategoryViewState();
+  State<AddBannerView> createState() => _AddBannerViewState();
 }
 
-class _AddCategoryViewState extends State<AddCategoryView> {
+class _AddBannerViewState extends State<AddBannerView> {
   File? imageFile;
 
   final ImagePicker imgpicker = ImagePicker();
@@ -42,7 +42,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Add Category"),
+      appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Add Banner"),
       body: ListView(
         children: [
           imageFile == null
@@ -57,7 +57,7 @@ class _AddCategoryViewState extends State<AddCategoryView> {
                   height: 200,
                 ),
           CustomTextField(
-            labelName: "Category Name",
+            labelName: "Banner Name",
             controller: nameEditingController,
             focusNode: focusNode,
             requestfocusNode: focusNode,
@@ -65,7 +65,10 @@ class _AddCategoryViewState extends State<AddCategoryView> {
           ),
           AgreeButton(
               onTap: () {
-                homeController.addCategory(name: nameEditingController.text, image: imageFile!.path, productCount: 0);
+                homeController.addBanner(
+                  name: nameEditingController.text,
+                  image: imageFile!.path,
+                );
                 File? testFile;
 
                 nameEditingController.clear();

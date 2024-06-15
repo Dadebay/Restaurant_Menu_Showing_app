@@ -42,7 +42,7 @@ class _AddProductState extends State<AddProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Add product"),
+      appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Add product"),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         children: [
