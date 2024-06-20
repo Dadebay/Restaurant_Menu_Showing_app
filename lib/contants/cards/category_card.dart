@@ -18,11 +18,13 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(() => ShowAllProductsView(
+              categoryID: homeController.categoryList[index]['id'],
               name: homeController.categoryList[index]['name'],
               list: homeController.categoryList[index]['products'],
             ));
       },
       child: Container(
+        width: Get.size.width,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: const BorderRadius.only(bottomRight: Radius.circular(50), topLeft: Radius.circular(50)),
@@ -35,6 +37,7 @@ class CategoryCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(50)),
                 child: Image.file(
+                  width: Get.size.width,
                   File(homeController.categoryList[index]['image']),
                   fit: BoxFit.cover,
                 ),
@@ -47,11 +50,11 @@ class CategoryCard extends StatelessWidget {
                 children: [
                   Text(
                     homeController.categoryList[index]['name'],
-                    style: TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: 12.sp),
+                    style: const TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: 20),
                   ),
                   Text(
-                    homeController.categoryList[index]['productCount'].toString(),
-                    style: TextStyle(color: Colors.grey, fontFamily: gilroySemiBold, fontSize: 10.sp),
+                    "Nahar sany : ${homeController.categoryList[index]['productCount']}",
+                    style: const TextStyle(color: Colors.grey, fontFamily: gilroyMedium, fontSize: 16),
                   ),
                 ],
               ),

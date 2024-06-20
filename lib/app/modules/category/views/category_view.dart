@@ -1,14 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
-import 'package:menu_managament_app/app/modules/showAllProducts/views/show_all_products_view.dart';
 import 'package:menu_managament_app/contants/cards/category_card.dart';
-import 'package:menu_managament_app/contants/constants.dart';
 import 'package:menu_managament_app/contants/parallax_widget.dart';
 import '../controllers/category_controller.dart';
 
@@ -18,7 +13,7 @@ class CategoryView extends GetView<CategoryController> {
   CategoryController categoryController = Get.put(CategoryController());
   @override
   Widget build(BuildContext context) {
-    bool sizeValue = Get.size.width > 800 ? true : false;
+    bool sizeValue = Get.size.width >= 800 ? true : false;
     return Obx(() {
       return categoryController.changeList.value ? const Parallax() : gridPage(sizeValue);
     });

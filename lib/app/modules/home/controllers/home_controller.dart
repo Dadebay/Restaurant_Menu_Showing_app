@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:menu_managament_app/contants/widgets.dart';
 import 'package:uuid/uuid.dart';
 
@@ -16,7 +15,7 @@ class HomeController extends GetxController {
     var uuid = const Uuid();
     categoryList.add({'id': uuid.v1(), 'name': name, 'image': image, 'productCount': productCount, 'products': []});
     storage.write('categoryList', categoryList);
-    showSnackBar("Success", "Category Addeed", Colors.green);
+    showSnackBar("Goşuldy", "Kategoriýa goşuldy", Colors.green);
   }
 
   addProduct({required String productName, required List images, required String price, required String description, required String categoryID}) {
@@ -35,26 +34,34 @@ class HomeController extends GetxController {
       }
     }
 
-    productsList.add({
-      'id': id,
-      'name': productName,
-      'images': tryList,
-      'price': price,
-      'description': description,
-      'categoryID': categoryID,
-      'categoryName': categoryName,
-    });
+    productsList.add({'id': id, 'name': productName, 'images': tryList, 'price': price, 'description': description, 'categoryID': categoryID, 'categoryName': categoryName});
 
     storage.write('categoryList', categoryList);
     storage.write('productsList', productsList);
-    showSnackBar("Success", "Added products", Colors.green);
+    showSnackBar("Goşuldy", "Haryt goşuldy", Colors.green);
   }
 
   addBanner({required String name, required String image}) {
     var uuid = const Uuid();
     bannerList.add({'id': uuid.v1(), 'name': name, 'image': image});
     storage.write('bannerList', bannerList);
-    showSnackBar("Success", "bannerList Addeed", Colors.green);
+
+    showSnackBar("Goşuldy", "Reklama goşuldy", Colors.green);
+  }
+
+  deleteCategory(String id) {
+    productsList.removeWhere((element) => element['categoryID'] == id);
+    categoryList.removeWhere((element) => element['id'] == id);
+    storage.write('categoryList', categoryList);
+    storage.write('productsList', productsList);
+    showSnackBar("Pozuldy", "Kategoriya pozuldy", Colors.red);
+  }
+
+  deleteBanner(String path) {
+    bannerList.removeWhere((element) => element['image'] == path);
+    storage.write('bannerList', bannerList);
+
+    showSnackBar("Pozuldy", "Reklama pozuldy", Colors.red);
   }
 
   readProductsList() {

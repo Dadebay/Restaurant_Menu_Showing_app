@@ -32,15 +32,19 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
   );
 }
 
-GestureDetector NameWidget({required String name, required List list}) {
+GestureDetector NameWidget({required String name, required String categoryID, required List list}) {
+  bool sizeValue = Get.size.width >= 800 ? true : false;
+
   return GestureDetector(
     onTap: () {
       Get.to(() => ShowAllProductsView(
+            categoryID: categoryID,
             name: name,
             list: list,
           ));
     },
-    child: Padding(
+    child: Container(
+      color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,12 +52,50 @@ GestureDetector NameWidget({required String name, required List list}) {
           Text(
             name,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: 12.sp),
+            style: TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: sizeValue ? 26 : 22),
           ),
           const Icon(IconlyLight.arrowRightCircle)
         ],
       ),
     ),
+  );
+}
+
+customAlertDialog({required BuildContext context, required String title, required String subtitle, required Function() onYES}) {
+  // Set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text(
+      "no".tr,
+      style: const TextStyle(color: Colors.black, fontFamily: gilroyMedium, fontSize: 20),
+    ),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = TextButton(
+      onPressed: onYES,
+      child: Text(
+        "yes".tr,
+        style: const TextStyle(color: Colors.grey, fontFamily: gilroyRegular, fontSize: 20),
+      ));
+
+  AlertDialog alert = AlertDialog(
+    title: Text(
+      title.tr,
+      style: const TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 22),
+    ),
+    content: Text(
+      subtitle.tr,
+      style: const TextStyle(color: Colors.black, fontFamily: gilroyMedium, fontSize: 18),
+    ),
+    actions: [cancelButton, continueButton],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
   );
 }
 
@@ -73,6 +115,33 @@ Center emptyData() {
   return Center(
       child: Text(
     "noProduct".tr,
-    style: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 20.sp),
+    style: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 18.sp),
   ));
+}
+
+dynamic emptyCart() {
+  return Padding(
+    padding: const EdgeInsets.all(15.0),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Lottie.asset('assets/lottie/emptyCART.json', fit: BoxFit.cover, animate: true, width: 400, height: 400),
+        Text(
+          'cartEmpty'.tr,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 20),
+        ),
+        Text(
+          'cartEmptySubtitle'.tr,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Colors.black, fontFamily: gilroyRegular, fontSize: 20),
+        ),
+        const SizedBox(
+          height: 125,
+        )
+      ],
+    ),
+  );
 }

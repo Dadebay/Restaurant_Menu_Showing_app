@@ -29,10 +29,19 @@ class CartPageController extends GetxController {
   }
 
   minusCard({required String productID}) {
+    bool value = false;
     for (var element in cartList) {
       if (element['id'] == productID) {
-        element['quantity'] = element['quantity'] - 1;
+        if (element['quantity'] - 1 == 0) {
+          value = true;
+          element['quantity'] = element['quantity'] - 1;
+        } else {
+          element['quantity'] = element['quantity'] - 1;
+        }
       }
+    }
+    if (value) {
+      cartList.removeWhere((element) => element['quantity'] == 0);
     }
   }
 

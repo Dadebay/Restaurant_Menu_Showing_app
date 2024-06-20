@@ -47,6 +47,7 @@ class _ParallaxState extends State<Parallax> {
       scrollDirection: Axis.vertical,
       itemBuilder: (context, i) {
         return ParallaxImage(
+          categoryID: homeController.categoryList[i]['id'],
           imagePath: homeController.categoryList[i]['image'],
           categoryName: homeController.categoryList[i]['name'],
           productCount: homeController.categoryList[i]['productCount'],
@@ -58,12 +59,13 @@ class _ParallaxState extends State<Parallax> {
 }
 
 class ParallaxImage extends StatelessWidget {
-  ParallaxImage({super.key, required this.imagePath, required this.categoryName, required this.productCount, required this.list});
+  ParallaxImage({super.key, required this.imagePath, required this.categoryName, required this.categoryID, required this.productCount, required this.list});
 
   final GlobalKey _backgroundImageKey = GlobalKey();
   final String imagePath;
   final List list;
   final String categoryName;
+  final String categoryID;
   final int productCount;
 
   @override
@@ -71,6 +73,7 @@ class ParallaxImage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(() => ShowAllProductsView(
+              categoryID: categoryID,
               name: categoryName,
               list: list,
             ));
@@ -104,19 +107,9 @@ class ParallaxImage extends StatelessWidget {
                 child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), borderRadius: borderRadius30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    categoryName,
-                    style: TextStyle(color: Colors.white, fontFamily: gilroyBold, fontSize: 25.sp),
-                  ),
-                  Text(
-                    productCount.toString(),
-                    style: TextStyle(color: Colors.grey, fontFamily: gilroyMedium, fontSize: 20.sp),
-                  ),
-                ],
+              child: Text(
+                categoryName,
+                style: TextStyle(color: Colors.white, fontFamily: gilroyBold, fontSize: 25.sp),
               ),
             )),
           ],

@@ -5,9 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
-import 'package:menu_managament_app/contants/cards/category_card.dart';
 import 'package:menu_managament_app/contants/cards/home_page_product_card.dart';
-import 'package:menu_managament_app/contants/cards/product_card.dart';
 import 'package:menu_managament_app/contants/custom_app_bar.dart';
 import 'package:menu_managament_app/contants/widgets.dart';
 
@@ -32,7 +30,7 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    bool sizeValue = Get.size.width > 800 ? true : false;
+    bool sizeValue = Get.size.width >= 800 ? true : false;
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -49,7 +47,7 @@ class _SearchViewState extends State<SearchView> {
                         : GridView.builder(
                             itemCount: searchController.searchResult.isEmpty ? homeController.productsList.length : searchController.searchResult.length,
                             physics: const BouncingScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: sizeValue ? 4 : 3, childAspectRatio: 3.3 / 4),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: sizeValue ? 3 : 2, childAspectRatio: 3 / 4.25),
                             itemBuilder: (context, index) {
                               return HomePageProductCard(
                                 sizeValue: sizeValue,

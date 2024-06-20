@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,74 +41,57 @@ class _AddProductState extends State<AddProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Add product"),
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Haryt goşmak"),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         children: [
           imageFile.isEmpty
-              ? ElevatedButton(
-                  onPressed: () {
-                    getImage();
-                  },
-                  child: const Text("get images"))
-              : SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    itemCount: imageFile.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Image.file(
-                        File(imageFile[index].path),
-                        width: 200,
-                      );
-                    },
+              ? SizedBox(
+                  height: Get.size.height / 4,
+                  child: Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: kPrimaryColor, shape: const RoundedRectangleBorder(borderRadius: borderRadius10)),
+                      onPressed: () {
+                        getImage();
+                      },
+                      child: const Text(
+                        "Surat saýla",
+                        style: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 18),
+                      ),
+                    ),
                   ),
-                ),
+                )
+              : imagesView(),
           CustomTextField(
-            labelName: "Product Name",
+            labelName: "Haryt ady",
             controller: nameEditingController,
             focusNode: focusNode,
+            borderRadius: true,
             requestfocusNode: focusNode1,
             unFocus: true,
           ),
-          Obx(() {
-            return SizedBox(
-              height: 70,
-              child: ListView.builder(
-                itemCount: homeController.categoryList.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(10),
-                      padding: const EdgeInsets.all(10),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: selectedIndex == index ? Colors.red : Colors.white, borderRadius: borderRadius15, boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 3, spreadRadius: 3)]),
-                      child: Text(homeController.categoryList[index]['name']),
-                    ),
-                  );
-                },
-              ),
-            );
-          }),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: Text(
+              "Kategoriýa saýla",
+              style: TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: 20),
+            ),
+          ),
+          categoriyalar(),
           CustomTextField(
-            labelName: "Price",
+            labelName: "Haryt bahasy TMT",
             isNumber: true,
             controller: priceEditingController,
             focusNode: focusNode2,
+            borderRadius: true,
             requestfocusNode: focusNode1,
             unFocus: true,
           ),
           CustomTextField(
-            labelName: "Description ",
-            maxline: 3,
+            labelName: "Beýany ",
+            maxline: 5,
+            borderRadius: true,
             controller: descriptionEditingController,
             focusNode: focusNode1,
             requestfocusNode: focusNode2,
@@ -118,21 +100,95 @@ class _AddProductState extends State<AddProduct> {
           AgreeButton(
               onTap: () {
                 setState(() {});
-
                 homeController.addProduct(
                     productName: nameEditingController.text,
                     images: imageFile,
                     price: priceEditingController.text,
                     description: descriptionEditingController.text,
                     categoryID: homeController.categoryList[selectedIndex]['id']);
-
                 nameEditingController.clear();
                 priceEditingController.clear();
+                imageFile.clear();
+                selectedIndex = -1;
                 descriptionEditingController.clear();
               },
-              text: "Agree")
+              text: "agree".tr)
         ],
       ),
+    );
+  }
+
+  Obx categoriyalar() {
+    return Obx(() {
+      return SizedBox(
+        height: 70,
+        child: ListView.builder(
+          itemCount: homeController.categoryList.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: selectedIndex == index ? kPrimaryColor : Colors.white, borderRadius: borderRadius15, boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 3, spreadRadius: 3)]),
+                child: Text(
+                  homeController.categoryList[index]['name'],
+                  style: TextStyle(color: selectedIndex == index ? Colors.white : Colors.black, fontFamily: selectedIndex == index ? gilroySemiBold : gilroyRegular, fontSize: 18),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    });
+  }
+
+  Widget imagesView() {
+    bool sizeValue = Get.size.width >= 800 ? true : false;
+
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: imageFile.length,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (BuildContext context, int index) {
+        return Stack(
+          children: [
+            ClipRRect(
+              borderRadius: borderRadius10,
+              child: Image.file(
+                File(imageFile[index].path),
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: IconButton(
+                  onPressed: () {
+                    imageFile.removeAt(index);
+                    setState(() {});
+                  },
+                  icon: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                      child: const Icon(
+                        CupertinoIcons.xmark_circle,
+                        color: Colors.red,
+                      ))),
+            ),
+          ],
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: sizeValue ? 5 : 3, mainAxisSpacing: 10, crossAxisSpacing: 10),
     );
   }
 }

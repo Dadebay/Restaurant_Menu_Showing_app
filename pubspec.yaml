@@ -14,10 +14,12 @@ dependencies:
   carousel_slider: ^4.2.1
   lottie: ^3.1.0
   get_storage:
+  font_awesome_flutter: ^10.7.0
   uuid: ^4.4.0
   path:
   path_provider:
   image_picker:
+  flutter_social_button: ^1.1.4+1
   restart_app:
   flutter:
     sdk: flutter

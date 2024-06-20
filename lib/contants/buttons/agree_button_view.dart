@@ -41,7 +41,7 @@ class AgreeButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.white, fontFamily: gilroyBold, fontSize: 22),
+                style: const TextStyle(color: Colors.black, fontFamily: gilroyBold, fontSize: 22),
               ),
       );
     });

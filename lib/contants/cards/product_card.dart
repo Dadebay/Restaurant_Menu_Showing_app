@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ShowAllProductsView(name: homeController.productsList[index]['name'], list: homeController.productsList));
+        Get.to(() => ShowAllProductsView(categoryID: homeController.productsList[index]['categoryID'], name: homeController.productsList[index]['name'], list: homeController.productsList));
       },
       child: Container(
         decoration: BoxDecoration(
