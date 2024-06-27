@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
-
 import 'package:get/get.dart';
 import 'package:menu_managament_app/contants/constants.dart';
 
@@ -30,7 +29,7 @@ class AppInfoPageView extends GetView<AppInfoPageController> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            button(sizeValue, '+993-65-14-02-14', IconlyLight.call),
+            button(sizeValue, '+993-65-14-82-14', IconlyLight.call),
             button(sizeValue, 'Gökdepe toý mekany we dynç alyş merkezi Köçe magtymguly şaýoly', FontAwesomeIcons.instagram),
             button(sizeValue, 'Gökdepe toý mekany we dynç alyş merkezi Köçe magtymguly şaýoly', IconlyLight.location),
             button(sizeValue, '@Gökdepe toý mekany we dync alyş merkezi', FontAwesomeIcons.tiktok),

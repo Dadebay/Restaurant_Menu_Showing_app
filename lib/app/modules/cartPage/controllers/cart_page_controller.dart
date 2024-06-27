@@ -43,6 +43,7 @@ class CartPageController extends GetxController {
     if (value) {
       cartList.removeWhere((element) => element['quantity'] == 0);
     }
+    cartList.refresh();
   }
 
   plusCard({required String productID}) {
@@ -51,5 +52,6 @@ class CartPageController extends GetxController {
         element['quantity'] = element['quantity'] + 1;
       }
     }
+    cartList.refresh();
   }
 }

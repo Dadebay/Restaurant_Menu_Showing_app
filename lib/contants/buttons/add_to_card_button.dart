@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:menu_managament_app/app/modules/cartPage/controllers/cart_page_controller.dart';
@@ -53,10 +52,10 @@ class _AddToCardButtonState extends State<AddToCardButton> {
       },
       child: Container(
           width: Get.size.width,
-          height: widget.productProfil ? 50 : 40,
+          height: widget.productProfil ? 50 : 34,
           alignment: Alignment.center,
           margin: EdgeInsets.only(bottom: widget.productProfil ? 20 : 8, left: widget.productProfil ? 10 : 8, right: widget.productProfil ? 10 : 8),
-          padding: EdgeInsets.symmetric(vertical: sizeValue ? 0 : 5.h, horizontal: widget.productProfil ? 16.w : 8.w),
+          padding: EdgeInsets.symmetric(horizontal: widget.productProfil ? 16.w : 8.w),
           decoration: BoxDecoration(color: kPrimaryColor, borderRadius: widget.productProfil ? borderRadius10 : borderRadius10),
           child: Text(
             "addCart".tr,

@@ -35,7 +35,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        print(didPop);
         if (didPop == false) {
           customAlertDialog(
               context: context,
@@ -54,49 +53,100 @@ class _BottomNavBarState extends State<BottomNavBar> {
           icon: buildIcon(context),
           name: "${names[selectedIndex]}".tr,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          iconSize: 22,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          selectedItemColor: kPrimaryColor,
-          useLegacyColorScheme: true,
-          selectedLabelStyle: const TextStyle(fontFamily: gilroySemiBold, fontSize: 13),
-          unselectedLabelStyle: const TextStyle(fontFamily: gilroyMedium, fontSize: 12),
-          currentIndex: selectedIndex,
-          onTap: (index) async => setState(() => selectedIndex = index),
-          items: [
-            BottomNavigationBarItem(
-              icon: const Icon(IconlyLight.home),
-              activeIcon: const Icon(IconlyBold.home),
-              label: 'home'.tr,
-              tooltip: 'home'.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(IconlyLight.category),
-              activeIcon: const Icon(IconlyBold.category),
-              label: 'category'.tr,
-              tooltip: 'category'.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(IconlyLight.buy),
-              activeIcon: const Icon(IconlyBold.buy),
-              label: 'order'.tr,
-              tooltip: 'order'.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(IconlyLight.infoSquare),
-              activeIcon: const Icon(IconlyBold.infoSquare),
-              label: 'contactInformation'.tr,
-              tooltip: 'contactInformation'.tr,
-            ),
-          ],
-        ),
+        bottomSheet: selectedIndex == 2
+            ? Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [BoxShadow(color: Colors.grey.shade300, spreadRadius: 5, blurRadius: 5)],
+                ),
+                width: Get.size.width,
+                child: Obx(() {
+                  double sumPrice = 0.0;
+                  print(cartPageController.cartList);
+                  for (var element in cartPageController.cartList) {
+                    sumPrice += double.parse(element['price'].toString()) * element['quantity'];
+                  }
+                  sumPrice = sumPrice * (1 + 10 / 100);
+
+                  return Wrap(
+                    children: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Hyzmat üçin :',
+                            style: TextStyle(fontFamily: gilroyMedium, color: Colors.grey, fontSize: 20),
+                          ),
+                          Text("10%", style: TextStyle(fontFamily: gilroyMedium, color: Colors.grey, fontSize: 20)),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${'sum'.tr} : ',
+                            style: const TextStyle(fontFamily: gilroySemiBold, fontSize: 20),
+                          ),
+                          Text("${sumPrice.toStringAsFixed(1)} TMT ", style: const TextStyle(fontFamily: gilroySemiBold, fontSize: 20)),
+                        ],
+                      ),
+                    ],
+                  );
+                }),
+              )
+            : const SizedBox.shrink(),
+        bottomNavigationBar: bottomNavBar(),
         body: Center(
           child: pages[selectedIndex],
         ),
       ),
+    );
+  }
+
+  BottomNavigationBar bottomNavBar() {
+    return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      iconSize: 22,
+      elevation: selectedIndex == 2 ? 0 : 1,
+      type: BottomNavigationBarType.fixed,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      selectedItemColor: kPrimaryColor,
+      useLegacyColorScheme: true,
+      selectedLabelStyle: const TextStyle(fontFamily: gilroySemiBold, fontSize: 13),
+      unselectedLabelStyle: const TextStyle(fontFamily: gilroyMedium, fontSize: 12),
+      currentIndex: selectedIndex,
+      onTap: (index) async => setState(() => selectedIndex = index),
+      items: [
+        BottomNavigationBarItem(
+          icon: const Icon(IconlyLight.home),
+          activeIcon: const Icon(IconlyBold.home),
+          label: 'home'.tr,
+          tooltip: 'home'.tr,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(IconlyLight.category),
+          activeIcon: const Icon(IconlyBold.category),
+          label: 'category'.tr,
+          tooltip: 'category'.tr,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(IconlyLight.buy),
+          activeIcon: const Icon(IconlyBold.buy),
+          label: 'order'.tr,
+          tooltip: 'order'.tr,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(IconlyLight.infoSquare),
+          activeIcon: const Icon(IconlyBold.infoSquare),
+          label: 'contactInformation'.tr,
+          tooltip: 'contactInformation'.tr,
+        ),
+      ],
     );
   }
 
