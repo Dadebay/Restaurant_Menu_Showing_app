@@ -13,7 +13,7 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
   return Get.snackbar(
     title,
     subtitle,
-    snackStyle: SnackStyle.floating,
+    snackStyle: SnackStyle.FLOATING,
     titleText: title == ''
         ? const SizedBox.shrink()
         : Text(
@@ -24,7 +24,7 @@ SnackbarController showSnackBar(String title, String subtitle, Color color) {
       subtitle.tr,
       style: const TextStyle(fontFamily: gilroyRegular, fontSize: 16, color: Colors.white),
     ),
-    snackPosition: SnackPosition.top,
+    snackPosition: SnackPosition.TOP,
     backgroundColor: color,
     borderRadius: 20.0,
     duration: const Duration(milliseconds: 800),

@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:menu_managament_app/contants/constants.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -73,7 +73,7 @@ class CustomTextField extends StatelessWidget {
                 : borderRadius == false
                     ? borderRadius5
                     : borderRadius20,
-            borderSide: const BorderSide(color: Colors.grey, width: 2),
+            borderSide: const BorderSide(color: Colors.black, width: 2),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: borderRadius == null
@@ -81,7 +81,7 @@ class CustomTextField extends StatelessWidget {
                 : borderRadius == false
                     ? borderRadius5
                     : borderRadius20,
-            borderSide: BorderSide(color: Colors.grey.shade200, width: 2),
+            borderSide: const BorderSide(color: Colors.black, width: 2),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: borderRadius == null
@@ -90,7 +90,7 @@ class CustomTextField extends StatelessWidget {
                     ? borderRadius5
                     : borderRadius20,
             borderSide: const BorderSide(
-              color: kPrimaryColor,
+              color: Colors.black,
               width: 2,
             ),
           ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
-import 'package:menu_managament_app/app/modules/home/views/bottom_nav_bar.dart';
-import 'package:menu_managament_app/app/modules/home/views/home_view.dart';
+import 'package:menu_managament_app/app/modules/home/views/lang_select_view.dart';
 import 'package:menu_managament_app/contants/constants.dart';
 import 'package:menu_managament_app/contants/utils.dart';
 
@@ -45,24 +44,22 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               title: appName,
               theme: ThemeData(
-                brightness: Brightness.light,
                 fontFamily: gilroyRegular,
                 colorSchemeSeed: kPrimaryColor,
                 useMaterial3: true,
                 appBarTheme: const AppBarTheme(
-                  backgroundColor: Colors.white,
-                  systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.white, statusBarBrightness: Brightness.light, statusBarIconBrightness: Brightness.dark),
+                  backgroundColor: Colors.black,
+                  systemOverlayStyle:
+                      SystemUiOverlayStyle(statusBarColor: Colors.black, systemNavigationBarColor: Colors.black, statusBarBrightness: Brightness.light, statusBarIconBrightness: Brightness.light),
                   titleTextStyle: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 20),
                   elevation: 0,
                 ),
-                bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.transparent.withOpacity(0)),
-                visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
               fallbackLocale: const Locale('tm'),
               locale: storage.read('langCode') != null ? Locale(storage.read('langCode')) : const Locale('tm'),
               translations: MyTranslations(),
               defaultTransition: Transition.circularReveal,
-              home: const BottomNavBar());
+              home: const LangSelectView());
         });
   }
 }

@@ -60,7 +60,7 @@ class _AddToCardButtonState extends State<AddToCardButton> {
           child: Text(
             "addCart".tr,
             style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontFamily: gilroySemiBold,
                 fontSize: widget.productProfil
                     ? 24
@@ -82,19 +82,14 @@ class _AddToCardButtonState extends State<AddToCardButton> {
         children: [
           GestureDetector(
             onTap: () {
-              quantity--;
-
-              if (quantity == 0) {
-                quantity = 0;
-                addCart = false;
-              }
-              cartPageController.minusCard(productID: widget.productID);
+              quantity++;
+              cartPageController.plusCard(productID: widget.productID);
               setState(() {});
             },
             child: Container(
               padding: const EdgeInsets.all(4.0),
               decoration: const BoxDecoration(color: kPrimaryColor, borderRadius: borderRadius10),
-              child: const Icon(CupertinoIcons.minus, color: Colors.white, size: 28),
+              child: const Icon(CupertinoIcons.add, color: Colors.white, size: 28),
             ),
           ),
           Expanded(
@@ -110,14 +105,19 @@ class _AddToCardButtonState extends State<AddToCardButton> {
           ),
           GestureDetector(
             onTap: () {
-              quantity++;
-              cartPageController.plusCard(productID: widget.productID);
+              quantity--;
+
+              if (quantity == 0) {
+                quantity = 0;
+                addCart = false;
+              }
+              cartPageController.minusCard(productID: widget.productID);
               setState(() {});
             },
             child: Container(
               padding: const EdgeInsets.all(4.0),
-              decoration: const BoxDecoration(color: kPrimaryColor, borderRadius: borderRadius10),
-              child: const Icon(CupertinoIcons.add, color: Colors.white, size: 28),
+              decoration: const BoxDecoration(color: Colors.black54, borderRadius: borderRadius10),
+              child: const Icon(CupertinoIcons.minus, color: Colors.white, size: 28),
             ),
           ),
         ],
@@ -166,7 +166,7 @@ class _AddToCardButtonState extends State<AddToCardButton> {
               '$quantity',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontFamily: gilroyBold,
                   fontSize: widget.productProfil
                       ? 25

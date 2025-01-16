@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
 import 'package:menu_managament_app/contants/constants.dart';
 
@@ -10,38 +9,68 @@ class AppInfoPageView extends GetView<AppInfoPageController> {
   const AppInfoPageView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        textPart(),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0.0,
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: IconButton(
+            color: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            icon: const Icon(
+              IconlyLight.arrowLeftCircle,
+              color: Colors.black,
+              size: 25,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'contactInformation'.tr,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.black,
+            fontFamily: gilroySemiBold,
+            fontSize: 22,
+          ),
+        ),
+      ),
+      body: textPart(),
     );
   }
 
   Widget textPart() {
     bool sizeValue = Get.size.width >= 800 ? true : false;
 
-    return Expanded(
-      flex: 3,
-      child: Container(
-        alignment: Alignment.centerLeft,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            button(sizeValue, '+993-65-14-82-14', IconlyLight.call),
-            button(sizeValue, 'Gökdepe toý mekany we dynç alyş merkezi Köçe magtymguly şaýoly', FontAwesomeIcons.instagram),
-            button(sizeValue, 'Gökdepe toý mekany we dynç alyş merkezi Köçe magtymguly şaýoly', IconlyLight.location),
-            button(sizeValue, '@Gökdepe toý mekany we dync alyş merkezi', FontAwesomeIcons.tiktok),
-          ],
-        ),
+    return Container(
+      width: Get.size.width,
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "contactInformation"),
+          button(sizeValue, '+993-65-13-94-47', IconlyLight.call),
+          button(sizeValue, '+993-62-25-33-26', IconlyLight.call),
+        ],
       ),
     );
   }
 
   Padding button(bool sizeValue, String title, IconData icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: sizeValue ? 15 : 8),
+      padding: EdgeInsets.symmetric(
+        vertical: sizeValue ? 20 : 8,
+      ),
       child: TextButton.icon(
         onPressed: () {},
         icon: Container(
@@ -50,13 +79,13 @@ class AppInfoPageView extends GetView<AppInfoPageController> {
           decoration: const BoxDecoration(shape: BoxShape.circle, color: kPrimaryColor),
           child: Icon(
             icon,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         label: Text(
           title,
           maxLines: 5,
-          style: TextStyle(color: Colors.black, fontFamily: gilroyMedium, overflow: TextOverflow.ellipsis, fontSize: sizeValue ? 22 : 18),
+          style: const TextStyle(color: Colors.black, fontFamily: gilroyBold, overflow: TextOverflow.ellipsis, fontSize: 22),
         ),
       ),
     );

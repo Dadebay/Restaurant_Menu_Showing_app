@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
-import 'package:menu_managament_app/contants/cards/home_page_product_card.dart';
+import 'package:menu_managament_app/contants/cards/product_card.dart';
 import 'package:menu_managament_app/contants/custom_app_bar.dart';
 import 'package:menu_managament_app/contants/widgets.dart';
 

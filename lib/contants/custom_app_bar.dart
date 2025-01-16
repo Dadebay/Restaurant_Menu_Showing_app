@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, file_names, use_key_in_widget_constructors, avoid_implementing_value_types
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:menu_managament_app/app/modules/cartPage/controllers/cart_page_controller.dart';
@@ -39,8 +38,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
                 highlightColor: Colors.transparent,
                 icon: Icon(
                   IconlyLight.arrowLeftCircle,
-                  color: Colors.black,
-                  size: 22,
+                  color: Colors.white,
+                  size: 25,
                 ),
                 onPressed: () {
                   Get.back();
@@ -51,14 +50,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
           : SizedBox.shrink(),
       actions: [if (actionIcon) Padding(padding: const EdgeInsets.only(right: 5), child: icon) else SizedBox.shrink()],
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       title: Text(
         name.tr,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.black,
+          color: Colors.white,
           fontFamily: gilroySemiBold,
           fontSize: sizeWidth > 800 ? 35 : 22,
         ),

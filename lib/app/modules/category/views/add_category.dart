@@ -1,14 +1,10 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
 import 'package:menu_managament_app/app/modules/home/views/custom_text_field.dart';
 import 'package:menu_managament_app/contants/buttons/agree_button_view.dart';
 import 'package:menu_managament_app/contants/constants.dart';
-import 'package:menu_managament_app/contants/custom_app_bar.dart';
 import 'package:menu_managament_app/contants/widgets.dart';
 
 class AddCategoryView extends StatefulWidget {
@@ -19,98 +15,84 @@ class AddCategoryView extends StatefulWidget {
 }
 
 class _AddCategoryViewState extends State<AddCategoryView> {
-  File? imageFile;
+  final HomeController _homeController = Get.find();
+  final TextEditingController _nameEditingController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
-  final ImagePicker imgpicker = ImagePicker();
-  final HomeController homeController = Get.put(HomeController());
-  Future getImage() async {
-    try {
-      final XFile? pickedFile = await imgpicker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        imageFile = File(pickedFile.path);
-        setState(() {});
-      } else {
-        showSnackBar("errorTitle", "Surat saýlamadyňyz", Colors.red);
-      }
-    } catch (e) {
-      showSnackBar("errorTitle", "error", Colors.red);
+  void _addCategory() {
+    if (_nameEditingController.text.isEmpty) {
+      showSnackBar('errorTitle'.tr, 'errorEmpty'.tr, Colors.red);
+      return;
     }
+    _homeController.addCategory(
+      name: _nameEditingController.text,
+      productCount: 0,
+    );
+    _nameEditingController.clear();
   }
 
-  TextEditingController nameEditingController = TextEditingController();
-  FocusNode focusNode = FocusNode();
+  @override
+  void dispose() {
+    _nameEditingController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "Kategoriýa goşmak"),
-      body: ListView(
-        padding: const EdgeInsets.all(15),
-        children: [
-          imageFile == null
-              ? SizedBox(
-                  height: Get.size.height / 4,
-                  child: Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: kPrimaryColor, shape: const RoundedRectangleBorder(borderRadius: borderRadius10)),
-                      onPressed: () {
-                        getImage();
-                      },
-                      child: const Text(
-                        "Surat saýla",
-                        style: TextStyle(color: Colors.black, fontFamily: gilroySemiBold, fontSize: 18),
-                      ),
-                    ),
-                  ),
-                )
-              : Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: borderRadius10,
-                      child: Image.file(
-                        imageFile!,
-                        width: Get.size.width / 1,
-                        height: Get.size.height / 4,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: IconButton(
-                          onPressed: () {
-                            imageFile = null;
-                            setState(() {});
-                          },
-                          icon: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                              child: const Icon(
-                                CupertinoIcons.xmark_circle,
-                                color: Colors.red,
-                              ))),
-                    ),
-                  ],
-                ),
-          CustomTextField(
-            labelName: "Kategoriýa ady",
-            controller: nameEditingController,
-            focusNode: focusNode,
-            borderRadius: true,
-            requestfocusNode: focusNode,
-            unFocus: true,
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0.0,
+        centerTitle: true,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: IconButton(
+            color: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            icon: const Icon(
+              IconlyLight.arrowLeftCircle,
+              color: Colors.black,
+              size: 25,
+            ),
+            onPressed: () {
+              Get.back();
+            },
           ),
-          AgreeButton(
-              onTap: () {
-                homeController.addCategory(name: nameEditingController.text, image: imageFile!.path, productCount: 0);
-                File? testFile;
-
-                nameEditingController.clear();
-                imageFile = testFile;
-                setState(() {});
-              },
-              text: "agree".tr)
-        ],
+        ),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        title: Text(
+          'add_category'.tr,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.black,
+            fontFamily: gilroySemiBold,
+            fontSize: 22,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomTextField(
+              labelName: "category_name".tr,
+              controller: _nameEditingController,
+              focusNode: _focusNode,
+              borderRadius: true,
+              requestfocusNode: _focusNode,
+              unFocus: true,
+            ),
+            AgreeButton(onTap: _addCategory, text: "agree".tr),
+          ],
+        ),
       ),
     );
   }

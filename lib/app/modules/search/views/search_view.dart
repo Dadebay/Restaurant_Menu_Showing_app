@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:menu_managament_app/app/modules/home/controllers/home_controller.dart';
-import 'package:menu_managament_app/contants/cards/home_page_product_card.dart';
-import 'package:menu_managament_app/contants/custom_app_bar.dart';
+import 'package:menu_managament_app/contants/cards/product_card.dart';
 import 'package:menu_managament_app/contants/widgets.dart';
 
 import '../controllers/search_controller.dart';
@@ -32,10 +30,18 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     bool sizeValue = Get.size.width >= 800 ? true : false;
 
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "search".tr),
-        body: Column(
+    return SafeArea(
+      child: Scaffold(
+          // backgroundColor: Colors.white,
+          // appBar: CustomAppBar(backArrow: true, centerTitle: true, actionIcon: false, name: "search".tr),
+          body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/image/back_image.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
           children: [
             searchWidget(),
             Expanded(
@@ -59,7 +65,9 @@ class _SearchViewState extends State<SearchView> {
               }),
             )
           ],
-        ));
+        ),
+      )),
+    );
   }
 
   Padding searchWidget() {

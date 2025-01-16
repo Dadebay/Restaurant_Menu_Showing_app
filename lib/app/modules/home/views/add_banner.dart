@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,25 @@ class AddBannerView extends StatefulWidget {
 
 class _AddBannerViewState extends State<AddBannerView> {
   File? imageFile;
+  getFileSizeString({required int bytes, int decimals = 0}) {
+    if (bytes <= 0) return "0 Bytes";
+    const suffixes = [" Bytes", "KB", "MB", "GB", "TB"];
+    var i = (log(bytes) / log(1024)).floor();
+    print(((bytes / pow(1024, i)).toStringAsFixed(decimals)) + suffixes[i]);
+  }
 
   final ImagePicker imgpicker = ImagePicker();
   final HomeController homeController = Get.put(HomeController());
   Future getImage() async {
     try {
-      final XFile? pickedFile = await imgpicker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile = await imgpicker.pickImage(source: ImageSource.gallery, maxHeight: 480, maxWidth: 640, imageQuality: 50);
+      // final XFile? pickedFile = await imgpicker.pickImage(
+      //   source: ImageSource.gallery,
+      // );
       if (pickedFile != null) {
         imageFile = File(pickedFile.path);
+        getFileSizeString(bytes: imageFile!.lengthSync());
+
         setState(() {});
       } else {
         showSnackBar("errorTitle", "Surat saýlamadyňyz", Colors.red);

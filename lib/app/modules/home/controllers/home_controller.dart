@@ -11,9 +11,10 @@ class HomeController extends GetxController {
   RxList productsList = [].obs;
   RxBool agreeButton = false.obs;
   GetStorage storage = GetStorage();
-  addCategory({required String name, required String image, required int productCount}) {
+
+  addCategory({required String name, required int productCount}) {
     var uuid = const Uuid();
-    categoryList.add({'id': uuid.v1(), 'name': name, 'image': image, 'productCount': productCount, 'products': []});
+    categoryList.add({'id': uuid.v1(), 'name': name, 'image': "", 'productCount': productCount, 'products': []});
     storage.write('categoryList', categoryList);
     showSnackBar("Goşuldy", "Kategoriýa goşuldy", Colors.green);
   }
